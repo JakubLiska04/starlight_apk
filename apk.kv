@@ -1,0 +1,583 @@
+Screen:
+    on_leave: app.previous_screen = self.name
+#Register obrazovka
+<Register>
+    orientation: 'vertical'
+    FloatLayout:
+        Label:
+            pos_hint: {"x":.04, "y":.3}
+            text: "REGISTER TO..."
+            font_size: 32
+        Label:
+            pos_hint: {"x":.05, "y":.25}
+            text: "APK NAME"
+            font_size: 26
+        MDFillRoundFlatButton:
+            pos_hint: {"x":0.75, "y":0.92}
+            size_hint:(.1, .3)
+            text: "Log In"
+            size_hint_y: None
+            height: 5
+            font_size: 12
+            on_press:
+                root.manager.current = 'log_in'
+        MDTextField:
+            pos_hint: {"x":.025, "y":.3}
+            size_hint:(.9, .25)
+            id: username
+            size_hint_y: None
+            height: 50
+            hint_text: "username"
+        MDTextField:
+            pos_hint: {"x":.025, "y":.24}
+            size_hint:(.9, .25)
+            id: email
+            size_hint_y: None
+            height: 50
+            hint_text: "email"
+        MDTextField:
+            pos_hint: {"x":.025, "y":.18}
+            size_hint:(.9, .25)
+            id: password
+            password: True
+            size_hint_y: None
+            height: 50
+            hint_text: "password"
+
+        MDFillRoundFlatButton:
+            halign: "center"
+            md_bg_color: "orange"
+            pos_hint: {"x":.025, "y":.115}
+            size_hint:(.9, .25)
+            text: "Sign in"
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                app.register()
+        MDFillRoundFlatButton:
+            halign: "center"
+            md_bg_color: "orange"
+            pos_hint: {"x":.025, "y":.05}
+            size_hint:(.9, .25)
+            text: "Quit"
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                quit()
+#Log in obrazovka
+<LogIn>
+    orientation: 'vertical'
+    FloatLayout:
+        Label:
+            pos_hint: {"x":.04, "y":.3}
+            text: "LOG IN"
+            font_size: 32
+        Label:
+            id: login_text
+            pos_hint: {"x":.05, "y":.25}
+            text: "WELCOME TO APK NAME"
+            font_size: 20
+        MDTextField:
+            pos_hint: {"x":.025, "y":.25}
+            size_hint:(.9, .25)
+            id: username
+            size_hint_y: None
+            height: 50
+            hint_text: "username"
+        MDTextField:
+            pos_hint: {"x":.025, "y":.19}
+            size_hint:(.9, .25)
+            id: password
+            password: True
+            size_hint_y: None
+            height: 50
+            hint_text: "password"
+        MDFillRoundFlatButton:
+            halign: "center"
+            id: login
+            md_bg_color: "orange"
+            pos_hint: {"x":.025, "y":.115}
+            size_hint:(.9, .25)
+            text: "Log In"
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                app.log_in()
+        MDRoundFlatButton:
+            id: forgot_password
+            text: "Forgot password?"
+            text_color: "white"
+            line_color: 0, 0, 0, 0
+            pos_hint: {"x":.0, "y":.36}
+            size_hint:(.1,.2)
+            size_hint_y: None
+            height: 5
+            font_size: 12
+            on_press:
+                app.forgot_password()
+        MDRoundFlatIconButton:
+            icon: 'checkbox-blank-outline'
+            id: stay_signed
+            text: "Stay signed in"
+            text_color: "white"
+            line_color: 0, 0, 0, 0
+            pos_hint: {"x":.0, "y":.4}
+            size_hint:(.1,.3)
+            size_hint_y: None
+            height: 5
+            font_size: 12
+            on_press:
+                app.stay_signed()
+        MDFillRoundFlatButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.025, "y":.05}
+            size_hint:(.9, .25)
+            text: "Register"
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.transition.direction = "right"
+                root.manager.current = 'register'
+#Užívateľská obrazovka/ default screen v apke
+<MainScreen>
+    FloatLayout:
+        MDIconButton:
+            icon: 'plus'
+        MDIconButton:
+            id: profile_picture
+            icon: 'account'
+            pos_hint: {"x":.85, "y":.0}
+            on_press:
+                root.manager.current = 'profile'
+                root.manager.transition.direction = "up"
+        MDLabel:
+            halign: "center"
+            pos_hint: {"x":.05, "y":.45}
+            text: "App Name"
+            font_size: 32
+        MDTextField:
+            pos_hint: {"x":.025, "y":.8}
+            size_hint:(.9, .25)
+            id: search_bar
+            password: True
+            size_hint_y: None
+            height: 50
+            hint_text: "Search For..."
+        #ScrollView:
+        #    MDList:
+        #        id: container
+#Profil #zákazníka
+<Profile>
+    orientation: 'vertical'
+    FloatLayout:
+        adaptive_height: True
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"x":.0, "y":.9}
+            on_press:
+                root.manager.current = 'main_screen'
+        MDIconButton:
+            halign: "center"
+            id: profile_pic
+            icon: "account-box"
+            pos_hint: {"x":.2, "y":.55}
+            icon_size: "180sp"
+            on_press:
+                app.upload_profile_pic()
+
+        Label:
+            id: profile
+            pos_hint: {"x":.05, "y":.45}
+            text: "Profile"
+            font_size: 32
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.45}
+            text: "Delete Account"
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.current = 'profile_delete'
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.385}
+            text: "Change Password"
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.current = 'password_change'
+        MDRaisedButton:
+            md_bg_color: "orange"
+            text: "Designer mode"
+            pos_hint: {"x":.05, "y":.32}
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.current = 'designer'
+
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.255}
+            text: "Order"
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.current = "order"
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.190}
+            size_hint:(.9, .25)
+            text: 'Profile edit'
+            font_size: 18
+            size_hint_y: None
+            height: 50
+            on_press:
+                root.manager.current = "profile_edit"
+        MDFillRoundFlatButton:
+            size_hint:(.1, .3)
+            text: "Log Out"
+            size_hint_y: None
+            height: 5
+            font_size: 12
+            on_press:
+                root.manager.current = "log_in"
+        MDIconButton:
+            icon: 'chat'
+            pos_hint: {"x":.8, "y":.0}
+            on_press:
+                root.manager.current = 'chats'
+                root.manager.transition.direction = "up"
+#profil dizajnéra
+<Designer>
+    orientation: 'vertical'
+    FloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"x":.0, "y":.9}
+            on_press:
+                root.manager.current = 'main_screen'
+        MDIconButton:
+            id: profile_pic
+            icon: "account-box"
+            pos_hint: {"x":.2, "y":.55}
+            icon_size: "180sp"
+            on_press:
+                app.upload_profile_pic()
+        Label:
+            id: profile
+            pos_hint: {"x":.05, "y":.45}
+            text: "Profile"
+            font_size: 32
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.45}
+            text: "Delete account"
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.current = "profile_delete"
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.385}
+            text: "Change Password"
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.current = 'password_change'
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.255}
+            text: "Post"
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.32}
+            text: "Customer mode"
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.current = 'profile'
+
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.125}
+            size_hint:(.9, .25)
+            text: "Works"
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                root.manager.current = "works"
+
+        MDRaisedButton:
+            md_bg_color: "orange"
+            pos_hint: {"x":.05, "y":.190}
+            size_hint:(.9, .25)
+            text: 'Profile edit'
+            font_size: 18
+            size_hint_y: None
+            height: 50
+            on_press:
+                root.manager.current = "profile_edit"
+        MDFillRoundFlatButton:
+            size_hint:(.1, .3)
+            text: "Log Out"
+            size_hint_y: None
+            height: 5
+            font_size: 12
+            on_press:
+                root.manager.current = "log_in"
+        MDIconButton:
+            icon: 'chat'
+            pos_hint: {"x":.8, "y":.0}
+            on_press:
+                root.manager.current = 'chats'
+                root.manager.transition.direction = "up"
+#Edit profile
+<ProfileEdit>
+    orientation: 'vertical'
+    FloatLayout:
+        Label:
+            id: profile
+            pos_hint: {"x":.05, "y":.45}
+            text: "Profile"
+            font_size: 32
+        Label:
+            text: "Are you a graphic designer or customer?"
+            pos_hint: {"x":.05, "y":.2}
+            font_size: 14
+        MDRaisedButton:
+            id: designer_button
+            md_bg_color: "orange"
+            text: "Designer"
+            pos_hint: {"x":.05, "y":.45}
+            size_hint:(.2,.5)
+            size_hint_y: None
+            height: 10
+            font_size: 12
+            on_press:
+                app.set_profile()
+                root.manager.current = "designer_edit"
+        MDRaisedButton:
+            id: customer_button
+            md_bg_color: "orange"
+            text: "Customer"
+            pos_hint: {"x":.6, "y":.45}
+            size_hint:(.2, .5)
+            size_hint_y: None
+            height: 10
+            font_size: 12
+            on_press:
+                app.set_profile()
+                root.manager.current = "customer_edit"
+        MDIconButton:
+            pos_hint: {"x":.0, "y":.9}
+            icon:"arrow-left"
+            on_press: root.manager.current = "designer"
+#obrazovka chatov
+<Chats>
+    orientation: 'vertical'
+    FloatLayout:
+        Label:
+            pos_hint: {"x":.05, "y":.45}
+            text: "Chats"
+            font_size: 32
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"x":.0, "y":.9}
+            on_press:
+                root.manager.current = "profile"
+
+<Password_change>
+    orientation: 'vertical'
+    FloatLayout:
+        Label:
+            pos_hint: {"x":.05, "y":.45}
+            text:"Change Password"
+            font_size: 24
+        Label:
+            id: profile
+            halign: "center"
+            pos_hint: {"x":.05, "y":.35}
+            text:""
+            font_size: 32
+        MDTextField:
+            id: old_password
+            password: True
+            multiline: False
+            hint_text: "Old Password"
+            pos_hint: {"x":.025, "y":.3}
+            size_hint:(.9, .20)
+            size_hint_y: None
+            height: 30
+        MDTextField:
+            id: new_password
+            password: True
+            multiline: False
+            hint_text: "New Password"
+            pos_hint: {"x":.025, "y":.19}
+            size_hint:(.9, .20)
+            size_hint_y: None
+            height: 30
+        MDRaisedButton:
+            md_bg_color: "orange"
+            text: "Save"
+            pos_hint: {"x":.025, "y":.115}
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                app.password_change()
+        MDIconButton:
+            pos_hint: {"x":.0, "y":.9}
+            icon:"arrow-left"
+            on_press:
+                root.manager.current = "profile"
+<Designer_edit>
+    orientation: 'vertical'
+    FloatLayout:
+        Label:
+            text: "Become a designer"
+            pos_hint: {"x":.05, "y":.45}
+            font_size: 24
+        Label:
+            text: "What is your price €/h?"
+            pos_hint: {"x":.025, "y":.1}
+            font_size: 16
+        MDTextField:
+            id: price
+            multiline: False
+            size_hint:(.9, .20)
+            size_hint_y: None
+            height: 30
+            hint_text: "My price per hour is...€"
+            pos_hint: {"x":.025, "y":.45}
+        MDRaisedButton:
+            pos_hint: {"x":.025, "y":.405}
+            text:"Confirm"
+            on_press:
+                app.designer_submit()
+                root.manager.current = "designer"
+        MDIconButton:
+            pos_hint: {"x":.0, "y":.9}
+            icon:"arrow-left"
+            on_press:
+                root.manager.current = "profile"
+<Customer_edit>
+    orientation: 'vertical'
+    ScrollView:
+        FloatLayout:
+            Label:
+                text: "Become a Customer"
+                pos_hint: {"x":.05, "y":.45}
+                font_size: 24
+            Label:
+                text: "What is your budget?"
+                pos_hint: {"x":.025, "y":.1}
+                font_size: 16
+            MDTextField:
+                multiline: False
+                id: budget
+                size_hint:(.9, .20)
+                size_hint_y: None
+                height: 30
+                hint_text: "My budget € per hour is...€"
+                pos_hint: {"x":.025, "y":.45}
+            MDRaisedButton:
+                pos_hint: {"x":.025, "y":.405}
+                text:"Confirm"
+                on_press:
+                    app.customer_submit()
+                    root.manager.current = "profile"
+            MDIconButton:
+                pos_hint: {"x":.0, "y":.9}
+                icon:"arrow-left"
+                on_press:
+                    root.manager.current = "profile"
+<Profile_delete>
+    orientation: 'vertical'
+    FloatLayout:
+        Label:
+            pos_hint: {"x":.05, "y":.45}
+            text:"Delete Account"
+            font_size: 32
+        Label:
+            id: profile
+            text: ""
+            pos_hint: {"x":.05, "y":.35}
+            font_size: 32
+        MDTextField:
+            id: password
+            password: True
+            multiline: False
+            hint_text: "Password"
+            pos_hint: {"x":.025, "y":.3}
+            size_hint:(.9, .20)
+            size_hint_y: None
+            height: 30
+        MDTextField:
+            id: password_confirm
+            password: True
+            multiline: False
+            hint_text: "Confirm Password"
+            pos_hint: {"x":.025, "y":.19}
+            size_hint:(.9, .20)
+            size_hint_y: None
+            height: 30
+        MDRaisedButton:
+            md_bg_color: "orange"
+            text: "Confirm"
+            pos_hint: {"x":.025, "y":.115}
+            size_hint:(.9, .25)
+            size_hint_y: None
+            height: 50
+            font_size: 18
+            on_press:
+                app.delete_data()
+                root.manager.current = "log_in"
+        MDIconButton:
+            pos_hint: {"x":.0, "y":.9}
+            icon:"arrow-left"
+            on_press:
+                root.manager.current = "profile"
+<Works>
+    orientation:'vertical'
+    FloatLayout:
+        adaptive_height: True
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"x":.0, "y":.9}
+            on_press:
+                root.manager.current = 'designer'
+<Order>
+    orientation:'vertical'
+    FloatLayout:
+        adaptive_height: True
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"x":.0, "y":.9}
+            on_press:
+                root.manager.current = 'profile'

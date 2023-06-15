@@ -1,0 +1,25 @@
+Screen:
+<MainScreen>
+    FloatLayout:
+        MDIconButton:
+            icon: 'plus'
+        MDIconButton:
+            id: profile_picture
+            icon: 'account'
+            pos_hint: {"x":.85, "y":.0}
+            on_press:
+                root.manager.current = 'profile'
+                root.manager.transition.direction = "up"
+        MDLabel:
+            halign: "center"
+            pos_hint: {"x":.05, "y":.45}
+            text: "App Name"
+            font_size: 32
+        MDTextField:
+            pos_hint: {"x":.025, "y":.8}
+            size_hint:(.9, .25)
+            id: search_bar
+            password: True
+            size_hint_y: None
+            height: 50
+            hint_text: "Search For..."
